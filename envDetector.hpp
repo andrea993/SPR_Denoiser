@@ -1,12 +1,11 @@
 class EnvDetector
 {
     public:
-        EnvDetector() : k1(.0), k2(.0), x1(.0), x2(.0), Ts(1.0) {}
-        EnvDetector(double k1, double k2, double Ts) : k1(k1), k2(k2), x1(.0), x2(.0), Ts(Ts) {}
+        EnvDetector(double k1 = 0, double k2 = 0, double Ts = 1) : k1(k1), k2(k2), x1(0), x2(0), Ts(Ts) {}
 
         double GetSmp(double u) {
-            auto y { (x1 > x2) ? x1 : x2 };
-            auto epsilon { u - y };
+            auto y{ (x1 > x2) ? x1 : x2 };
+            auto epsilon{ u - y };
             x1 += k1*Ts*epsilon;
             x2 += k2*Ts*epsilon;
             
