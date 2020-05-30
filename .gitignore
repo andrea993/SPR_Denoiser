@@ -1,0 +1,4 @@
+.vscode
+context.bat
+*.exe
+*.o

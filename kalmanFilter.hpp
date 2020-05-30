@@ -51,13 +51,13 @@ class KalmanFilter {
 
         KalmanOut GetSmp(const Y_t &Y, const R_t &R) {
             Yhat_t Yhat{ C*Xhat }; 
-            auto ϵ{ Y - Yhat };
+            auto epsilon{ Y - Yhat };
             auto S{ C*P*C.transpose() + R };
             auto K{ P*C.transpose()*S.inverse() };
-            auto Xf{ Xhat + K*ϵ };
+            auto Xf{ Xhat + K*epsilon };
             auto Pf{ P - K*S*K.transpose() };
             
-            Xhat = A*Xhat*A.transpose() + Q;
+            Xhat = A*Xf;
             P = A*Pf*A.transpose() + Q;
             
             return KalmanOut(Xhat, Yhat);
@@ -72,5 +72,4 @@ class KalmanFilter {
         P_t P;
         Xhat_t Xhat;
 
-                
 };
