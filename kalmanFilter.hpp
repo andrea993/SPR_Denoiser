@@ -56,13 +56,12 @@ class KalmanFilter {
             auto K{ P*C.transpose()*S.inverse() };
             auto Xf{ Xhat + K*epsilon };
             auto Pf{ P - K*S*K.transpose() };
-            
+
             Xhat = A*Xf;
             P = A*Pf*A.transpose() + Q;
             
             return KalmanOut(Xhat, Yhat);
-        }          
-    
+        }
 
     private:
         A_t A;
