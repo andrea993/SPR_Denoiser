@@ -19,8 +19,8 @@ class Denoiser {
         Eigen::Vector2d GetSmp(Eigen::Vector2d u) {
             // Kalman
             Eigen::Vector3d kf_in;
-            kf_in << u, 1;
-            auto kf_out = kf.GetSmp(kf_in, R0 + R);
+            kf_in << u, 0;
+            auto kf_out = kf.GetSmp(kf_in, R0 + 100 * R);
             // Update R
             auto err_pow = (kf_in - kf_out.Yhat).array().pow(2);
             R.diagonal() << ed0.GetSmp(err_pow(0)), ed1.GetSmp(err_pow(1)), ed2.GetSmp(err_pow(2));
@@ -37,9 +37,9 @@ class Denoiser {
         const Eigen::Matrix2d Q = (Eigen::MatrixXd(2,2) <<   0,   0,
                                                              0, 100).finished();
 
-        EnvDetector ed0;
-        EnvDetector ed1;
-        EnvDetector ed2;
+        EnvDetector ed0 { k1_ed, k2_ed };
+        EnvDetector ed1 { k1_ed, k2_ed };
+        EnvDetector ed2 { k1_ed, k2_ed };
 
         StateSpace ss {
             (A_t() << -1/tauC, 1/tauC, // A
