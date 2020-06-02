@@ -5,6 +5,9 @@
 
 constexpr double tauC = .005;
 constexpr double ESP = 1e-3;
+constexpr double k1_ed = .99;
+constexpr double k2_ed = .8;
+constexpr double K_R = 100.0;
 
 class Denoiser {
     public:
@@ -27,9 +30,6 @@ class Denoiser {
         }
 
     private:
-        const double k1_ed = .99;
-        const double k2_ed = .8;
-        const double K_R = 100.0;
         const Eigen::Matrix3d R0 = (Eigen::MatrixXd(3,3) << 10,   0,   0,
                                                              0,  10,   0,
                                                              0,   0, .05).finished();
@@ -41,13 +41,13 @@ class Denoiser {
         EnvDetector ed1;
         EnvDetector ed2;
 
-        StateSpace ss{
-            (Eigen::Matrix<double, 2, 2>() << -1/tauC, 1/tauC, // A
-                                               0, -ESP).finished(),
-            Eigen::Matrix<double, 0, 0>(), // B
-            (Eigen::Matrix<double, 3, 2>() << 1,   0, // C
-                                              1,   0,
-                                              1,  -1).finished()
+        StateSpace ss {
+            (A_t() << -1/tauC, 1/tauC, // A
+                        0,       -ESP).finished(),
+            B_t(), // B
+            (C_t() << 1,   0, // C
+                    1,   0,
+                    1,  -1).finished()
         };
         KalmanFilter kf{ ss, Q };
 
