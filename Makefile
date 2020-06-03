@@ -1,4 +1,4 @@
-CXXFLAGS = -I.
+CXXFLAGS = -Ofast -I.
 
 build: main.exe
 

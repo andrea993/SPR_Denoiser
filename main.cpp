@@ -27,7 +27,7 @@ int main() {
 
         auto out_sample = den.GetSmp(in_sample);
 
-        std::cout << out_sample(0) << ' ' << out_sample(1) << std::endl;
+        std::cout << out_sample(0) << ' ' << out_sample(1) << '\n';
     };
 
     return EXIT_SUCCESS;
