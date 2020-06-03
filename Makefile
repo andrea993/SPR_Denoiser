@@ -1,4 +1,4 @@
-CXXFLAGS = -Ofast -I.
+CXXFLAGS = -std=c++17 -Ofast -I.
 
 build: main.exe
 
