@@ -31,12 +31,12 @@ class Denoiser {
         const double k2_ed = .8;
         const double k_R = 100.0;
 
-        const Eigen::Matrix3d R0 = (Eigen::MatrixXd(3,3) << 10,   0,   0,
-                                                             0,  10,   0,
-                                                             0,   0, .05).finished();
-        Eigen::Matrix3d R = Eigen::Matrix3d::Zero();
-        const Eigen::Matrix2d Q = (Eigen::MatrixXd(2,2) <<   0,   0,
-                                                             0, 100).finished();
+        const R_t R0{ (Eigen::MatrixXd(3,3) << 10,   0,   0,
+                                                0,  10,   0,
+                                                0,   0, .05).finished() };
+        R_t R{ Eigen::Matrix3d::Zero() };
+        const Q_t Q{ (Eigen::MatrixXd(2,2) <<   0,   0,
+                                                0, 100).finished() };
 
         EnvDetector ed[3];
 
