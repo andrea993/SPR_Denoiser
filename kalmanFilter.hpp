@@ -12,11 +12,7 @@ using Y_t = Eigen::Vector3d;
 
 
 struct StateSpace {
-    StateSpace() : 
-        A(A_t::Zero()), B(B_t::Zero()), C(C_t::Zero())
-    {}
-
-    StateSpace(const A_t &A, const B_t &B, const C_t &C) :
+    StateSpace(const A_t &A = A_t::Zero(), const B_t &B = B_t::Zero(), const C_t &C = C_t::Zero()) :
         A(A), B(B), C(C)
     {}
 
@@ -26,11 +22,7 @@ struct StateSpace {
 };
 
 struct KalmanOut {
-      KalmanOut() :
-        Xhat(Xhat_t::Zero()), Yhat(Yhat_t::Zero())
-    {}  
-
-    KalmanOut(const Xhat_t &Xhat, Yhat_t &Yhat) :
+    KalmanOut(const Xhat_t &Xhat = Xhat_t::Zero(), const Yhat_t &Yhat = Yhat_t::Zero()) :
         Xhat(Xhat), Yhat(Yhat)
     {}
 
