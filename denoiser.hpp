@@ -3,6 +3,8 @@
 #include "envDetector.hpp"
 #include "kalmanFilter.hpp"
 
+//#include <iostream>
+
 
 class Denoiser {
     public:
@@ -21,28 +23,29 @@ class Denoiser {
             auto err_pow{ (kf_in - kf_out.Yhat).array().pow(2) };
             R.diagonal() << ed[0].GetSmp(err_pow(0)), ed[1].GetSmp(err_pow(1)), ed[2].GetSmp(err_pow(2));
 
+
+            //std::cout << kf_out.Xhat.transpose() << ' ' << R.diagonal().transpose() << '\n';
+
             return kf_out.Xhat;
         }
 
     private:
-        const double tauC = .005;
-        const double EPS = 1e-3;
         const double k1_ed = .99;
         const double k2_ed = .8;
         const double k_R = 100.0;
 
         const R_t R0{ (R_t() << 10,   0,   0,
-											0,  10,   0,
-											0,   0, .05).finished() };
+								0,  10,   0,
+								0,   0, .05).finished() };
         R_t R{ R_t::Zero() };
-        const Q_t Q{ (Q_t() <<   0,   0,
-											0, 100).finished() };
+        const Q_t Q{ (Q_t() <<  0,   0,
+								0, 100).finished() };
 
         EnvDetector ed[3];
 
         StateSpace ss {
-            (A_t() <<   -1/tauC, 1/tauC, 
-                        0,       -EPS).finished(),
+            (A_t() <<   0.135335283236613,   0.864659040108588, 
+                        0,                   0.999990000050000).finished(),
             B_t(), 
             (C_t() <<   1,   0, 
                         1,   0,

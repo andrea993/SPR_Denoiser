@@ -2,3 +2,5 @@
 context.bat
 *.exe
 *.o
+test.csv
+output.csv

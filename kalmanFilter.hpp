@@ -33,7 +33,7 @@ struct KalmanOut {
 
 class KalmanFilter {
     public:      
-        KalmanFilter(const StateSpace &ss = StateSpace(), const Q_t &Q = Q_t::Zero(), const P_t &P = P_t::Identity()*1e3) : 
+        KalmanFilter(const StateSpace &ss = StateSpace(), const Q_t &Q = Q_t::Zero(), const P_t &P = P_t::Identity()*10) : 
             A(ss.A), B(ss.B), C(ss.C), Q(Q), P(P), Xhat(Xhat_t::Zero())
         {}
 
